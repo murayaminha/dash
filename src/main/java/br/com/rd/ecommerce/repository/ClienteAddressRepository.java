@@ -16,7 +16,5 @@ public interface ClienteAddressRepository extends JpaRepository<ClientAddress, L
 
     List<ClientAddress> findByClient(Client client);
 
-    @Query(value = "SELECT address FROM ClientAddress where client = :cliente",
-            nativeQuery = true)
-    List<Address> findAddressClient(@Param("cliente")Client cliente);
+
 }
