@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
+import javax.mail.internet.MimeMessage;
 
 import javax.mail.internet.MimeMessage;
 
@@ -30,6 +31,7 @@ public class RequestController {
     private JavaMailSender mailSender;
     @Autowired
     private ItemCartRepository itemCartRepository;
+
     @PostMapping("/request")
     public Request save(@RequestBody StatusRequest statusRequest){
         Request request = statusRequest.getRequest();
@@ -103,7 +105,6 @@ public class RequestController {
     public void deletById(@PathVariable("id") Long id){
         repository.deleteById(id);
     }
-
     @PostMapping("/acompanhar")
     public ResponseEntity<List<Request>> acompanhar(@RequestBody() Client user){
         List request = repository.findByClient(user);
@@ -117,6 +118,6 @@ public class RequestController {
     public Optional<Request> buscarporId(@PathVariable("id") Long id){
         Optional<Request> request =  repository.findById(id);
         return request;
-    }
+    }}
 
-}
+
