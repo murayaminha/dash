@@ -1,4 +1,6 @@
 package br.com.rd.ecommerce.Controller;
+
+
 import br.com.rd.ecommerce.model.*;
 import br.com.rd.ecommerce.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 import javax.mail.internet.MimeMessage;
+
+import javax.mail.internet.MimeMessage;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +31,7 @@ public class RequestController {
     private JavaMailSender mailSender;
     @Autowired
     private ItemCartRepository itemCartRepository;
+
     @PostMapping("/request")
     public Request save(@RequestBody StatusRequest statusRequest){
         Request request = statusRequest.getRequest();
@@ -51,8 +57,8 @@ public class RequestController {
         String email =client.getMail();
         String texto = null;
         if(statusRequest.getStatusRequest().equals("pagamento foi aprovado")){
-            texto = ("<p>Nós rebecemos o pagamento do pedido "+request.getId()+"</p>"+
-                    "<p>Embreve você receberá informações sobre a entrega</p>");
+        texto = ("<p>Nós rebecemos o pagamento do pedido "+request.getId()+"</p>"+
+                "<p>Embreve você receberá informações sobre a entrega</p>");
         }
         else if (!statusRequest.getStatusRequest().equals("cancelado")){
             texto = ("<p>Seu pedido nº "+request.getId()+ "está com um nomo status:</p>"+
@@ -61,6 +67,7 @@ public class RequestController {
         else if(statusRequest.getStatusRequest().equals("cancelado")){
             texto = ("<p> Poxa, que pena, seu pedido nº "+request.getId()+ " foi cancelado, acesse nosso site para mais informações</p>");
         }
+
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper( mail );
@@ -73,6 +80,7 @@ public class RequestController {
             e.printStackTrace();
             return ResponseEntity.ok().body("Deu Ruim");
         }
+
 //        Product productEntity = productRepository.getOne(product.getCodProduct());
 //        productEntity.setCategory(product.getCategory());
 //        productEntity.setCodProduct(product.getCodProduct());
@@ -82,6 +90,8 @@ public class RequestController {
 //        productEntity.setModel(product.getModel());
 //        return productRepository.save(productEntity);
     }
+
+
     @GetMapping("/request/{id}")
     public Request findId(@PathVariable("id") Long id) { return repository.findById(id).get();
     }
@@ -104,3 +114,4 @@ public class RequestController {
         return request;
     }
 }
+
