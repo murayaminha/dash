@@ -25,11 +25,9 @@ public class ItemCart {
 
     @Column(name="ds_amount")
     private  Integer amount;
-
     @OneToOne
     @JoinColumn(name="cod_product")
     private Product codProduct;
-
     @ManyToOne
     @JoinColumn(name = "id_request")
     private Request request;

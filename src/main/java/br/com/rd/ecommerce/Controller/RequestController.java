@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
+import javax.mail.internet.MimeMessage;
 
 import javax.mail.internet.MimeMessage;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class RequestController {
@@ -27,6 +29,8 @@ public class RequestController {
     private StatusRequestRepository statusRequestRepository;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private ItemCartRepository itemCartRepository;
 
     @PostMapping("/request")
     public Request save(@RequestBody StatusRequest statusRequest){
@@ -48,7 +52,13 @@ public class RequestController {
     @PostMapping("/adicionar-statusRequest")
     public ResponseEntity<?> alterar(@RequestBody StatusRequest statusRequest){
         statusRequestRepository.save(statusRequest);
-        Request request = statusRequest.getRequest();
+        Request requestPaymentAlterado = statusRequest.getRequest();
+        Optional<Request> requestOptional = repository.findById(statusRequest.getRequest().getId());
+        Request request = requestOptional.orElse(null);
+        Payment payment = request.getPayment();
+        payment.setStatus(requestPaymentAlterado.getPayment().getStatus());
+        paymentRepository.save(payment);
+        repository.save(request);
         Client client = request.getClient();
         String email =client.getMail();
         String texto = null;
@@ -57,7 +67,7 @@ public class RequestController {
                 "<p>Embreve você receberá informações sobre a entrega</p>");
         }
         else if (!statusRequest.getStatusRequest().equals("cancelado")){
-            texto = ("<p>Seu pedido nº "+request.getId()+ "está com um nomo status:</p>"+
+            texto = ("<p>Seu pedido nº "+request.getId()+ "está com um como status:</p>"+
                     "<p>"+statusRequest.getStatusRequest()+"</p>");
         }
         else if(statusRequest.getStatusRequest().equals("cancelado")){
@@ -95,10 +105,19 @@ public class RequestController {
     public void deletById(@PathVariable("id") Long id){
         repository.deleteById(id);
     }
-
     @PostMapping("/acompanhar")
     public ResponseEntity<List<Request>> acompanhar(@RequestBody() Client user){
         List request = repository.findByClient(user);
         return ResponseEntity.ok().body(request);
     }
-}
+    @GetMapping("buscarRequest")
+    public List<ItemCart>  buscar(){
+        return itemCartRepository.findAll();
+    }
+    @GetMapping("buscarPedidoID/{id}")
+    public Optional<Request> buscarporId(@PathVariable("id") Long id){
+        Optional<Request> request =  repository.findById(id);
+        return request;
+    }}
+
+
