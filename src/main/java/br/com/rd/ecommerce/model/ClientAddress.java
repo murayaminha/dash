@@ -4,6 +4,7 @@ package br.com.rd.ecommerce.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,10 +21,11 @@ public class ClientAddress implements Serializable {
     @Column(name="id_client_address")
     private Long clienteAddress;
 
-@ManyToOne
+@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cliente")
     private Client client;
-@ManyToOne
+
+@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="id_address")
     private Address address;
 }

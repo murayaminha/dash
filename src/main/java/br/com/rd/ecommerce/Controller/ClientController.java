@@ -2,6 +2,7 @@ package br.com.rd.ecommerce.Controller;
 import br.com.rd.ecommerce.model.Address;
 import br.com.rd.ecommerce.model.Client;
 import br.com.rd.ecommerce.model.ClientAddress;
+import br.com.rd.ecommerce.model.Product;
 import br.com.rd.ecommerce.repository.AddressRepository;
 import br.com.rd.ecommerce.repository.ClientRepository;
 import br.com.rd.ecommerce.repository.ClienteAddressRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 
@@ -61,5 +63,23 @@ public class ClientController {
             String erro = "Não foi possivel autenticar tente novamente";
             return ResponseEntity.badRequest().body(erro);
         }
+    }
+
+
+//    @GetMapping("/client/{idClient}")
+//    public ResponseEntity findById(@PathVariable("idClient") Long idClient) {
+//        return ResponseEntity.ok().body(clientRepository.findByIdClient(idClient));
+//    }
+
+    @PutMapping("/client")
+    public Client alterar(@RequestBody Client client){
+        Client clientEntity = clientRepository.getOne(client.getIdClient());
+       clientEntity.setName(client.getName());
+       clientEntity.setCpf(client.getCpf());
+       clientEntity.setMail(client.getMail());
+       clientEntity.setPassword(client.getPassword());
+       clientEntity.setPhone(client.getPhone());
+       clientEntity.setBirthDate(client.getBirthDate());
+        return clientRepository.save(clientEntity);
     }
     }

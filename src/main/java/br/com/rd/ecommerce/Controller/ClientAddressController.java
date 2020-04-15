@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 
@@ -33,10 +34,9 @@ public class ClientAddressController {
         clientAddress.setAddress(addressRepository.save(clientAddress.getAddress()));
         repository.save(clientAddress);
         return ResponseEntity.ok().body(clientAddress.getClient());
-    };
-//    public ClientAddress save(@RequestBody ClientAddress clientAddress){
-//        return repository.save(clientAddress);
-//    };
+    }
+
+
     @PostMapping("/save-address")
     public ResponseEntity salvarEndereco(@RequestBody ClientAddress clientAddress){
         clientAddress.setAddress(addressRepository.save(clientAddress.getAddress()));
@@ -64,4 +64,12 @@ public class ClientAddressController {
     public ResponseEntity<?> findId(@PathVariable("id") Long id) {
     return ResponseEntity.ok().body(clientRepository.findById(id));
     }
+
+    @GetMapping("client-address/{idClient}")
+    public  ResponseEntity<?> findByAddress(@PathVariable("idClient") Long idClient){
+    Optional<Client> cliente = clientRepository.findById(idClient);
+    Address address = repository.findByClient(cliente.get()).get(0).getAddress();
+      return  ResponseEntity.ok().body(addressRepository.findById(address.getIdAddress()));
+    }
+
 }
