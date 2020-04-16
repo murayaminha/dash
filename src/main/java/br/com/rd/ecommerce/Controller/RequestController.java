@@ -86,15 +86,6 @@ public class RequestController {
             e.printStackTrace();
             return ResponseEntity.ok().body("Deu Ruim");
         }
-
-//        Product productEntity = productRepository.getOne(product.getCodProduct());
-//        productEntity.setCategory(product.getCategory());
-//        productEntity.setCodProduct(product.getCodProduct());
-//        productEntity.setValueProduct(product.getValueProduct());
-//        productEntity.setDescription(product.getDescription());
-//        productEntity.setBrand(product.getBrand());
-//        productEntity.setModel(product.getModel());
-//        return productRepository.save(productEntity);
     }
 
 
@@ -118,6 +109,18 @@ public class RequestController {
     public Optional<Request> buscarporId(@PathVariable("id") Long id){
         Optional<Request> request =  repository.findById(id);
         return request;
-    }}
+    }
+
+//    @GetMapping("/listar_status")
+//    public ResponseEntity<?> status(){
+//        return ResponseEntity.ok().body(statusRequestRepository.listarStatus());
+//    }
+
+    @GetMapping("/status_valor")
+    public ResponseEntity<?> statusValor(){
+        return ResponseEntity.ok().body(repository.valorStatus());
+    }
+
+}
 
 

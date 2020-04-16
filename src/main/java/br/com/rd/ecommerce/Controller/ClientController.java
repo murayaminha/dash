@@ -82,4 +82,5 @@ public class ClientController {
        clientEntity.setBirthDate(client.getBirthDate());
         return clientRepository.save(clientEntity);
     }
+
     }
