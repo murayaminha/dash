@@ -110,12 +110,12 @@ public class RequestController {
         Optional<Request> request =  repository.findById(id);
         return request;
     }
-<<<<<<< HEAD
+
     @GetMapping("buscarTodosPedidos")
     public List<Request> buscarTodosPedidos(){
         return repository.findAll();
     }
-=======
+
 
 //    @GetMapping("/listar_status")
 //    public ResponseEntity<?> status(){
@@ -127,7 +127,7 @@ public class RequestController {
         return ResponseEntity.ok().body(repository.valorStatus());
     }
 
->>>>>>> 7f341e8d5f9156e66fd5c548b375d30592d071c3
+
 }
 
 

@@ -23,18 +23,12 @@ public class ContactController {
     public Contact save(@RequestBody Contact contact){
         return repository.save(contact);
     };
-<<<<<<< HEAD
+
     @GetMapping("/contato")
     public ResponseEntity<?> elogio(){
         return ResponseEntity.ok().body(repository.buscarAssunto());
     }
-=======
 
-    @GetMapping("/elogio")
-    public ResponseEntity<?> elogio(){
-        return ResponseEntity.ok().body(repository.buscarAssunto());
-    }
 
->>>>>>> 7f341e8d5f9156e66fd5c548b375d30592d071c3
 }
 

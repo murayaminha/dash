@@ -59,10 +59,7 @@ public class AddressController {
         addressEntity.setNumber(address.getNumber());
         addressEntity.setState(address.getState());
         addressEntity.setZipCode(address.getZipCode());
-<<<<<<< HEAD
-=======
 
->>>>>>> 7f341e8d5f9156e66fd5c548b375d30592d071c3
         return addressRepository.save(addressEntity);
     }
 }

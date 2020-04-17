@@ -14,8 +14,5 @@ public interface ContactRepository extends JpaRepository <Contact, Long> {
 
     @Query(value = "SELECT COUNT(subject) AS quantidade, subject AS assunto FROM Contact GROUP BY assunto")
     List<?> buscarAssunto();
-<<<<<<< HEAD
-=======
 
->>>>>>> 7f341e8d5f9156e66fd5c548b375d30592d071c3
 }
