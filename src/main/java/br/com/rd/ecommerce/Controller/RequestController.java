@@ -118,6 +118,11 @@ public class RequestController {
     public Optional<Request> buscarporId(@PathVariable("id") Long id){
         Optional<Request> request =  repository.findById(id);
         return request;
-    }}
+    }
+    @GetMapping("buscarTodosPedidos")
+    public List<Request> buscarTodosPedidos(){
+        return repository.findAll();
+    }
+}
 
 
