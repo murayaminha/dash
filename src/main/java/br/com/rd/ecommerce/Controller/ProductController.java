@@ -43,7 +43,6 @@ public class ProductController {
     }
 
     @GetMapping("/product-id-description")
-
     public ResponseEntity<List<Product>> findByIdDescrition(@PathParam("codProduct") Long codProduct,
                                                             @PathParam("description") String description){
        List<Product> products = new ArrayList<>();
@@ -72,6 +71,7 @@ public class ProductController {
     public List<Product> findOrderPrice(){
         return productRepository.findByOrderByValueProduct();
     }
+
     @GetMapping("/product-orderNameDesc")
     public List<Product> findOrderNameDesc(){
         return productRepository.findByOrderByNameDesc();
@@ -87,7 +87,7 @@ public class ProductController {
         return productRepository.findByDescription(description);
     }
 
-    @DeleteMapping("/product")
+    @DeleteMapping("/product/{id}")
     public void deletById(@PathVariable("id") Long id){
         productRepository.deleteById(id);
     }
@@ -99,6 +99,7 @@ public class ProductController {
         productEntity.setCategory(product.getCategory());
         productEntity.setCodProduct(product.getCodProduct());
         productEntity.setValueProduct(product.getValueProduct());
+        productEntity.setValueDiscount(product.getValueDiscount());
         productEntity.setDescription(product.getDescription());
         productEntity.setBrand(product.getBrand());
         productEntity.setModel(product.getModel());

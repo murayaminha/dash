@@ -86,15 +86,6 @@ public class RequestController {
             e.printStackTrace();
             return ResponseEntity.ok().body("Deu Ruim");
         }
-
-//        Product productEntity = productRepository.getOne(product.getCodProduct());
-//        productEntity.setCategory(product.getCategory());
-//        productEntity.setCodProduct(product.getCodProduct());
-//        productEntity.setValueProduct(product.getValueProduct());
-//        productEntity.setDescription(product.getDescription());
-//        productEntity.setBrand(product.getBrand());
-//        productEntity.setModel(product.getModel());
-//        return productRepository.save(productEntity);
     }
 
 
@@ -119,10 +110,24 @@ public class RequestController {
         Optional<Request> request =  repository.findById(id);
         return request;
     }
+<<<<<<< HEAD
     @GetMapping("buscarTodosPedidos")
     public List<Request> buscarTodosPedidos(){
         return repository.findAll();
     }
+=======
+
+//    @GetMapping("/listar_status")
+//    public ResponseEntity<?> status(){
+//        return ResponseEntity.ok().body(statusRequestRepository.listarStatus());
+//    }
+
+    @GetMapping("/status_valor")
+    public ResponseEntity<?> statusValor(){
+        return ResponseEntity.ok().body(repository.valorStatus());
+    }
+
+>>>>>>> 7f341e8d5f9156e66fd5c548b375d30592d071c3
 }
 
 

@@ -36,20 +36,6 @@ public class AddressController {
     public Address save(@RequestBody Address address){
         return addressRepository.save(address);}
 
-//    @PostMapping("/create-address/{id}")
-//    public ResponseEntity<Object> save(@RequestBody Address address,
-//                                       @PathVariable("id")Long id ) {
-//        Optional<Client> cliente = clientRepository.findById(id);
-//        Client opt_cliente = cliente.orElse(null);
-//        if (opt_cliente == null) {
-//            return ResponseEntity.notFound().build();
-//        } else {
-//            ClientAddress clientAddress = null;
-//            clientAddress.setAddress(address);
-//            clientAddress.setClient(opt_cliente);
-//            return ResponseEntity.ok().body(clienteAddressRepository.save(clientAddress));
-//        }
-//    }
 
     @GetMapping("/find-address/list")
     public List<Address> find() {return addressRepository.findAll();}
@@ -73,6 +59,10 @@ public class AddressController {
         addressEntity.setNumber(address.getNumber());
         addressEntity.setState(address.getState());
         addressEntity.setZipCode(address.getZipCode());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f341e8d5f9156e66fd5c548b375d30592d071c3
         return addressRepository.save(addressEntity);
     }
 }
